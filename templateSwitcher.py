@@ -1,7 +1,7 @@
 import re
 from template.template import Template
 
-templateWordReg = re.compile('{(.*?)}(\[(.*?)\])?')
+templateWordReg = re.compile(r'{([^{]*?)}(\[(.*?)\])?')
 
 
 class TemplateSwitcher:
@@ -19,20 +19,22 @@ class TemplateSwitcher:
         template, start, end = self.findComposedTemplate(string)
         if template:
             template = Template(template, self.fixTemplate)
-            return string[0:start] + template.replace() + string[end:-1]
+            return string[0:start] + template.replace() + string[end:]
         else:
             return string
 
     def findComposedTemplate(self, string, start=0):
         """ Find composed template in string starting from start."""
         template, start, end = self.findFirstTemplate(string, start)
+        if not template:
+            return None, -1, -1
         composedTemplate = [template]
         newEnd = end
         while string[newEnd:newEnd + 3] == '||{':
             newTemplate, newStart, newEnd = self.findFirstTemplate(
                 string, newEnd + 2)
             if newTemplate == None:
-                exit('Problem with template composition last bracket')
+                exit('Problem with template composition ||')
             composedTemplate.append(newTemplate)
         return composedTemplate, start, newEnd
 
@@ -45,7 +47,6 @@ class TemplateSwitcher:
         wholeTemplate = groups[0]
         content = groups[1]
         options = groups[3]
-
         start = groups.start()
         end = groups.end()
 
@@ -58,6 +59,6 @@ class TemplateSwitcher:
         tmp = string
         while found:
             tmp = res
-            res = self.swipe(res)
+            res = self.switchOne(res)
             found = res != tmp
         return res

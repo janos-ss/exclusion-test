@@ -22,7 +22,7 @@
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 if [ "master" == "$branch" ]; then
-	bash './dev/pre-push.bash'
+	bash 'set -e; cd dev; ./pre-push.bash'
 fi
 
 

@@ -22,13 +22,13 @@ def test_findTemplate():
 
     (content, options), start, end = mutator.findFirstTemplate(testString, 0)
     assert content == 'test'
-    assert bool(options) == False
+    assert options== None
     assert start == 2
     assert end == 8
 
     (content, options), start, end = mutator.findFirstTemplate(testString, 8)
     assert content == 'test2'
-    assert bool(options) == False
+    assert options == ''
     assert start == 10
     assert end == 19
 
@@ -47,19 +47,19 @@ def test_findTemplate():
     # Testing than finished templated is detected first
     (content, options), start, end = mutator.findFirstTemplate(testString, 38)
     assert content == 'test5-2'
-    assert bool(options) == False
+    assert options == None
     assert start == 67
-    assert end == 74
+    assert end == 76
 
 
 def test_findComposedTemplate():
-    testString = a.join(
+    testString = a+a.join(
         ['{test1}||{test2}[2]||{test3}[]||{test4}', '{test5}||{test6}'])
     composedTemplate, start, newEnd = mutator.findComposedTemplate(
         testString, 2)
     assert composedTemplate[0] == ('test1', None)
     assert composedTemplate[1] == ('test2', '2')
-    assert composedTemplate[2] == ('test3', None)
+    assert composedTemplate[2] == ('test3', '')
     assert composedTemplate[3] == ('test4', None)
 
     composedTemplate, start, newEnd = mutator.findComposedTemplate(
@@ -76,7 +76,7 @@ def test_switchOne(monkeypatch):
     assert res == 'Hey, this is a TEST{another} and {another}'
 
 
-def test_switchAll():
+def test_switchAll(monkeypatch):
     monkeypatch.setattr(Template, "replace", mockReplace)
     testString = 'Hey, this is a {watevs}[ops=7,tata=8]{another} and {another}'
 
