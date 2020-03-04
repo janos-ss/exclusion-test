@@ -6,8 +6,10 @@ templateWordReg = re.compile(r'{([^{]*?)}(\[(.*?)\])?')
 
 class TemplateSwitcher:
 
-    def __init__(self):
+    def __init__(self, fileConstraint=False, command=False):
         self.fixTemplate = {}
+        self.fileConstraint = fileConstraint
+        self.allowCommand = command
 
     # For each key of dico not in templates, add value
     def setDico(self, dico):
@@ -18,7 +20,8 @@ class TemplateSwitcher:
         """ Resolve first finded template in string. Return resulted string"""
         template, start, end = self.findComposedTemplate(string)
         if template:
-            template = Template(template, self.fixTemplate)
+            template = Template(
+                template, self.fixTemplate, self.fileConstraint, self.allowCommand)
             return string[0:start] + template.replace() + string[end:]
         else:
             return string
@@ -52,6 +55,7 @@ class TemplateSwitcher:
 
         return (content, options), start, end
 
+# TODO Use re.searchall instead
     def switch(self, string):
         """ Resolve every template of the string. Return the result string"""
         found = True

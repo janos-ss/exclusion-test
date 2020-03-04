@@ -22,7 +22,7 @@ def test_findTemplate():
 
     (content, options), start, end = mutator.findFirstTemplate(testString, 0)
     assert content == 'test'
-    assert options== None
+    assert options == None
     assert start == 2
     assert end == 8
 
@@ -53,7 +53,7 @@ def test_findTemplate():
 
 
 def test_findComposedTemplate():
-    testString = a+a.join(
+    testString = a + a.join(
         ['{test1}||{test2}[2]||{test3}[]||{test4}', '{test5}||{test6}'])
     composedTemplate, start, newEnd = mutator.findComposedTemplate(
         testString, 2)
