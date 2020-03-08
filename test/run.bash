@@ -1,4 +1,4 @@
 #!/bin/bash
-cd "${0%/*}/codecov" # This put all the codecov mess in test and not in root project
+codecovDir="codecov" 
 root=$(git rev-parse --show-toplevel)
-PYTHONPATH=$root python3.7 -m pytest $root --cov-report xml:cov.xml --cov=$root --cov-config=.coveragerc
+PYTHONPATH=$root COVERAGE_FILE="$codecovDir/.coverage" python3.7 -m pytest $root --cov-report xml:"$codecovDir/cov.xml" --cov=$root --cov-config="$codecovDir/.coveragerc"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# if exit status != block th push
-
+set -e
 #Run test
-bash ../test/run.bash
+cd ../test
+bash run.bash

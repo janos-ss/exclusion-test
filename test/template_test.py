@@ -1,4 +1,5 @@
 import template.handler.handler
+import pytest
 from template.template import Template
 oldHandler= template.handler.handler.Handler
 
@@ -14,7 +15,17 @@ class mockHandler(template.handler.handler.Handler):
     def getHandler(*arg, **args):
         return mockHandler()
 
-template.handler.handler.Handler= mockHandler
+@pytest.fixture(autouse=True)
+def mockHandle():
+    # Before test
+    template.handler.handler.Handler= mockHandler
+
+    yield
+    # After test
+    template.handler.handler.Handler = oldHandler
+
+
+
 
 
 template1= Template([('key1',None)])
@@ -35,7 +46,6 @@ def test_replace():
     templateTest.values=['test','test','test']
     assert templateTest.replace() == 'test'
 
-Handler = oldHandler
 
     
     
