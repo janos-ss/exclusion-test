@@ -103,14 +103,31 @@ Search recursively in the directory and return a random value among any present 
 Run command and parse output as a file.
 
 ## Special case
+
+### Template Combination
 A template can be combined by many one with ||. || must stick to the two templates (no space). The result is one from the union of all the composing templates: {flying}||{4legs}||{fish}
 
 TODO (HARD, need a way more powerfull parser and architecture change)
 Allow intersection an grouping notation:
 {flying}||({4legs}&{hairy}
 
+### Template refering
+TODO
+You can refer to the n template to reuse it in place:
+```python
+"""{salutation} $2.
+blabla...
+Anyway {name}, see you soon."""
+```
+Which translate to:
+```python
+"""Hey Jenny.
+blabla...
+Anyway Jenny, see you soon."""
+```
+
 ## Security
-The file and command replacement is desactivated for obvious security reason. You have to active it at instanciation in the switcher constructor (see doc).
+The file and command replacement feature is desactivated for obvious security reason. You have to active it at instanciation in the switcher constructor (see doc).
 
 ### File
 TODO (for now its just a file default variable to set to True)

@@ -1,1 +1,1 @@
-This file test that that no .list file not checked
+This file test that that no .val file not checked when directiry searchused

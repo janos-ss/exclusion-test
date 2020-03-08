@@ -6,7 +6,12 @@ templateWordReg = re.compile(r'{([^{]*?)}(\[(.*?)\])?')
 
 class TemplateSwitcher:
 
-    def __init__(self, fileConstraint=False, command=False):
+    def __init__(self, fileConstraint=[], command=False):
+        
+        """fileConstraint: set it to a path or a list of path the template switcher is allowed to read files. By default nothing is accessible.
+        
+        command: set it to True if you want to provide bash execution to the switcher. (DANGEROUS, if you do so, provide an isolation mechanism. For exemple you can create a fakeuser on your system with a setuid on an executable. The $PATH of your user link only to a directory whith symlink to binary you allow the switcher to use. ) 
+        """
         self.fixTemplate = {}
         self.fileConstraint = fileConstraint
         self.allowCommand = command
@@ -21,8 +26,8 @@ class TemplateSwitcher:
         template, start, end = self.findComposedTemplate(string)
         if template:
             template = Template(
-                template, self.fixTemplate, self.fileConstraint, self.allowCommand)
-            return string[0:start] + template.replace() + string[end:]
+                template,  self.fileConstraint, self.allowCommand)
+            return string[0:start] + template.replace(self.fixTemplate) + string[end:]
         else:
             return string
 

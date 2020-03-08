@@ -7,12 +7,9 @@ a = 2 * 'a'
 mutator = templateSwitcher.TemplateSwitcher()
 
 
-def mockReplace(self):
+def mockReplace(self, dico={}):
     return 'TEST'
 
-
-def test_setTemplates():
-    pass
 
 
 def test_findTemplate():
