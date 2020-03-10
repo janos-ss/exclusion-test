@@ -130,7 +130,6 @@ Anyway Jenny, see you soon."""
 The file and command replacement feature is desactivated for obvious security reason. You have to active it at instanciation in the switcher constructor (see doc).
 
 ### File
-TODO (for now its just a file default variable to set to True)
 By setting the fileconstraint default variable ( either a path to accepted file/directory), either a list of them in the switcher constructor.
 
 ### Command
