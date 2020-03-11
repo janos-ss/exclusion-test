@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+import sys
+import os
+import pathlib
+#WARNING Relative : we just look one dir back. 
+templateSwitcherDir = str(pathlib.Path(__file__).absolute().parent.parent)
+sys.path.append(templateSwitcherDir) 
+
+import parser
+from templateSwitcher import TemplateSwitcher
+
+args= parser.getArgs()
+constraint= args['file_constraint']
+allowCommand= args['allow_command']
+template = args['template']
+dico= args['set']
+
+if args['debug']:
+    print ("cons:", constraint,file=sys.stderr)
+    print ("dico", dico, file= sys.stderr)
+
+switcher= TemplateSwitcher(dico, constraint, allowCommand)
+sys.stdout.write(switcher.switch(template))
+
+
+

@@ -6,15 +6,11 @@ import os
 
 class DirectoryHandler(Handler):
 
-    def __init__(self, *arg, **args):
-        Handler.__init__(self, *arg, **args)
-        self.fileHandler = FileHandler(*arg, **args)
-
-    def getValues(self):
-        res = []
+    def getInput(self):
+        res = ''
         for dirpath, dirnames, filenames in os.walk(self.mainComponent):
             for f in filenames:
-                if f.endswith('.list'):
-                    self.fileHandler.mainComponent = dirpath + f
-                    res.extend(self.fileHandler.getValues())
+                if f.endswith('.val'):
+                    with open(dirpath + '/' + f) as f2:
+                        res += f2.read()
         return res

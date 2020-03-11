@@ -3,6 +3,6 @@ from template.handler.handler import Handler
 
 class FileHandler(Handler):
 
-    def getValues(self):
+    def getInput(self):
         with open(self.mainComponent, 'r') as f:
-            return f.read().split(self.options['sep'])
+            return f.read()

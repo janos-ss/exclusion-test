@@ -5,9 +5,9 @@ import subprocess
 
 class CommandHandler(Handler):
 
-    def getValues(self):
+    def getInput(self):
         res = []
         process = subprocess.run(
             self.mainComponent, shell=True, stdout=subprocess.PIPE, universal_newlines=True)
         output = process.stdout
-        return output.split(self.options['sep'])
+        return output

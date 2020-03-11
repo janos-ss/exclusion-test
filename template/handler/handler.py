@@ -14,6 +14,13 @@ class Handler:
         self.options = self.createOptions(options)
 
     def getValues(self):
+        data = self.getInput()
+        return self.parseData(data)
+
+    def parseData(self, data):
+        return data.split(self.options['sep'])
+
+    def getInput(self):
         raise NotImplementedError(
             'Error: Handler is an abstract class, you should instantiate a subclasse with the HandlerFactoryClass')
 

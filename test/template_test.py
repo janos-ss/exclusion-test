@@ -1,12 +1,11 @@
-import template.handler.handler
+import template.handler.handlerFactory
 import pytest
 from template.template import Template
-oldHandler = template.handler.handler.Handler
 
 # TODO template class is off and should be redecouped
 
 
-class mockHandler(template.handler.handler.Handler):
+class mockHandler:
 
     def __init__(*arg, **args):
         pass
@@ -23,7 +22,7 @@ class mockHandler(template.handler.handler.Handler):
 @pytest.fixture(autouse=True)
 def mockHandle(monkeypatch):
     # Before test
-    monkeypatch.setattr(template.handler.handler, 'Handler', mockHandler)
+    monkeypatch.setattr(Template, 'handlerFactory', mockHandler)
 
 
 template1 = Template([('key1', None)])
@@ -40,8 +39,7 @@ def test_getAllValues():
 
 
 def test_replace():
-    # TODO truely test randomity?
-
     templateTest = Template([('key1', None)])
-    templateTest.values = ['test', 'test', 'test']
-    assert templateTest.replace() == 'test'
+    res = templateTest.replace()
+
+    assert (res == 'TEST2') or (res == 'TEST')
