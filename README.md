@@ -4,24 +4,20 @@
 python template engine
 
 # Motivations
-I want to have a public piece of code to show that I can code.
-So I just took a piece from one of my personal project than I cleaned out to publish it on github in order to show the world:
+This personal project had been published just to show I can produce clean project for potential recrutors.
+So I just took a piece from one of my personal project than I cleaned out to publish on github.
 
-* I have somes dev/ops skills
-* I can manage a python project
+This project had been created in the beginning to allow template modification based on value files. At that time I would only need to do union feature (se below). Now I would like to improve the parser to expose set arithmetic on value files.
 
-Procedure:
+Hopefully this repo may be usefull for you. Here is the "online doc", each function is documented by docstring. 
 
-* Put auto linter, test checker, test coverage report on githook. (see dev directory)
-* Defining clean architecture for my old code 
-* Implement unitest for each class of the archi
-* Change code to match architecture, run against the tests, commit test and class when it pass.
+# Contribute
+Any pr is welcome. Run dev/.githooks/shareHooks.bash to use my ci setup for this project (autolinting at comit and test before pushing)
 
-Hopefully this repo may be usefull for you. Here is the "online doc", each class function is documented by docstring. 
+For now I mainely want to create a true parser, and to divide the template class into expression and templates. The expression class would define what is the intersection of two expression, negation and so on. The parser would return an abstract tree that this expression would use to combinate simple template handler result in the good way.
+
 
 # Doc
-TODO = I am gonna implement it when I am free.
-The rest is allready there. I am actually coding tests. I will push the first release when every thing is okay.
 
 ## Exemple
 The aim is to transform a template string such as that one:
@@ -56,8 +52,10 @@ Content can be a:
 
 The parser by default check the type if it's match something existing in this order. 
 
-TODO
-If you want to avoid ambiguity, pass the type= key | file | dir | cli option.
+If you want to avoid ambiguity, pass the type= key | file | dir | cli option:
+```python
+"Hello {name}[type=file]"
+```
 
 ### Key
 Replace {key} by the value of the dico you set to the switcher. If the value is a list select a random one.
@@ -69,8 +67,6 @@ Replace {path} by value present in the file at path. If multiple values are foun
 #### sep
 default = '\n'
 Precise separator for finding multiple value in the file
-
-
 
 #### sep2
 TODO 
