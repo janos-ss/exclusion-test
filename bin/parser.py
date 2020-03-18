@@ -61,13 +61,14 @@ def parseMultiOptions(argparseproduct):
 
 
 def parseDico(argparseProduct, sep, sep2):
+
     listEntry = parseMultiOptions(argparseProduct)
     handler = Handler('placeholder', {'sep': sep, 'sep2': sep2})
     # We use the same algo as handler do for the files syntax
     res = {}
     for entry in listEntry:
         key, values = entry.split('=', 1)
-        values = handler.parseData(values)
+        values, ponderation, allEqual = handler.parseData(values)
         old = res.get(key, [])
         old.extend(values)
         res[key] = old

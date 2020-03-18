@@ -26,25 +26,52 @@ def mockHandle(monkeypatch):
 
 
 def test_basic():
-    handler = BasicHandler('test', None, {'test': ["res"]})
-    assert handler.getValues().sort() == ['res'].sort()
+    handler = BasicHandler('test', None, {'test': ["res", ('tamere', 18)]})
+    values, ponderation, allEqual = handler.getValues()
+    assert sorted(values) == sorted([('res', 1.0), ('tamere', 18)])
+    assert ponderation == 19
+    assert not allEqual
 
 
 def test_file():
     handler = FileHandler('testData/testKey1.val', None)
-    assert handler.getValues().sort() == ['TEST1', 'TEST2'].sort()
+
+    values, ponderation, allEqual = handler.getValues()
+    # User need to watch to not put the separator for no reason (really watch
+    # out for the last \n)
+    assert sorted(values) == sorted([('TEST1', 1), ('TEST2', 1)])
+    assert ponderation == 2
+    assert allEqual
 
     handler = FileHandler('testData/testKey2.val', {'sep': ':'})
-    assert handler.getValues().sort() == ['TEST3', 'TEST4'].sort()
+
+    values, ponderation, allEqual = handler.getValues()
+    assert sorted(values) == sorted([('TEST3', 1), ('TEST4', 1)])
+    assert ponderation == 2
+    assert allEqual
+
+    handler = FileHandler('testData/ponderated', {})
+
+    values, ponderation, allEqual = handler.getValues()
+    assert sorted(values) == sorted([('tiger', 8), ('cow', 1), ('chicken', 7)])
+    assert ponderation == 16
+    assert not allEqual
 
 
 def test_dir():
     handler = DirectoryHandler(
         'testData/unifiedsep', None)
-    assert handler.getValues().sort() == [
-        'TEST3', 'TEST4', 'TEST1', 'TEST2'].sort()
+    values, ponderation, allEqual = handler.getValues()
+
+    assert sorted(values) == sorted([
+        ('TEST3', 1), ('TEST4', 1), ('TEST1', 1), ('TEST2', 1)])
+    assert ponderation == 4
+    assert allEqual
 
 
 def test_command():
     handler = CommandHandler('echo "test1\ntest2"', None)
-    assert handler.getValues().sort() == ['test1', 'test2'].sort()
+    values, ponderation, allEqual = handler.getValues()
+    assert sorted(values) == sorted([('test1', 1), ('test2', 1)])
+    assert ponderation == 2
+    assert allEqual

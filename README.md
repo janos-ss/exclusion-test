@@ -131,5 +131,8 @@ By setting the fileconstraint default variable ( either a path to accepted file/
 ### Command
 Set the default variable command at True in switcher constructor
 
+## Parsing 
+The parsing of your file and command entry start at first line and end at the first final white character. It mean that if you want empty string to be a possible value you cannot put it in the end, but you can put it in the begining or anywhere in the midle
+
 
 

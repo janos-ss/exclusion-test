@@ -7,10 +7,12 @@ import os
 class DirectoryHandler(Handler):
 
     def getInput(self):
-        res = ''
+        """Recursively explore directory and return joined .val terminated file adding separator between them"""
+        resList = []
         for dirpath, dirnames, filenames in os.walk(self.mainComponent):
             for f in filenames:
                 if f.endswith('.val'):
-                    with open(dirpath + '/' + f) as f2:
-                        res += f2.read()
-        return res
+                    resList.append(
+                        self.sanitize(FileHandler.readFile(dirpath + '/' + f)))
+
+        return self.options['sep'].join(resList)
