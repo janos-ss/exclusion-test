@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/crazyhouse33/templateSwitcher/branch/master/graph/badge.svg)](https://codecov.io/gh/crazyhouse33/templateSwitcher)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c5ca155886f058a98e81/maintainability)](https://codeclimate.com/github/crazyhouse33/templateSwitcher/maintainability)
 
 
 python template engine
