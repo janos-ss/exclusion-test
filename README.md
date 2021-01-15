@@ -1,4 +1,4 @@
-test 1
+test 2
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2645db1d05a042daa9622485df6c652e)](https://www.codacy.com/manual/crazyhouse33/templateSwitcher?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=crazyhouse33/templateSwitcher&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/crazyhouse33/templateSwitcher/branch/master/graph/badge.svg)](https://codecov.io/gh/crazyhouse33/templateSwitcher)
